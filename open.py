@@ -139,15 +139,13 @@ def mainMessage(sleep=0):
 
     i = 1
     for rightChatBox in rightChatBoxes:
-        #print(rightChatBox.get_attribute('innerHTML'))
         soup = BeautifulSoup(rightChatBox.get_attribute('innerHTML'), 'html.parser')
         #print(soup.prettify())
         name = soup.select("._19RFN")[0].get('title')
         mesg_time = soup.select("._0LqQ")[0].get_text()
         chatHead = driver.find_elements_by_css_selector(".P6z4j")[0]
         no_messages = int(chatHead.get_attribute('innerHTML'))
-        print(no_messages)
-
+        
         rightChatBox.click()
 
         if i == 1:
@@ -160,11 +158,6 @@ def mainMessage(sleep=0):
             print(messages)
 
             for message in messages:
-                #star_button = driver.find_elements_by_css_selector(".Sl-9e[value = 'Star message']")  #_3zy-4 Sl-9e _3_4Kp
-                #star_xpath = '//*[@id="main"]/div[1]/div[2]/div/div[2]'
-                #print("******** {}".format(star_button))
-                #print("******** {}".format(star_button.get_attribute('innerHTML')))
-                driver.find_element(By.XPATH, '//button[text()="Star message"]').click()
                 mesg = strip_tags(message.get_attribute('innerHTML'))
                 print(mesg)
                 mlist = []
@@ -191,3 +184,28 @@ while 1:
 
 time.sleep(10)
 driver.quit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#star_button = driver.find_elements_by_css_selector(".Sl-9e[value = 'Star message']")  #_3zy-4 Sl-9e _3_4Kp
+                #star_xpath = '//*[@id="main"]/div[1]/div[2]/div/div[2]'
+                #print("******** {}".format(star_button))
+                #print("******** {}".format(star_button.get_attribute('innerHTML')))
+                '''driver.find_elements_by_css_selector("._15CAo")[0].click() # 
+                print("click1")
+                driver.find_element(By.XPATH, '//*[@title="Star message"]').click()
+                print("click2")'''
