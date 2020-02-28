@@ -102,17 +102,8 @@ def mainMessage(sleep=0):
                 is_offensive = predict(mlist)[0]
                 if is_offensive:
                     send_message("'Offensive'", "{} @ {} : {}".format(name, mesg_time, mesg))
-                '''group_name = "'" + classify(mess)[0] + "'"
-                print(mess)
-                print(group_name)
-
-                send_message(group_name, mess)'''
         except :
             pass
-#            alert1 = driver.SwitchTo().Alert()
-#            alert1.Accept()
-
-
 
 count = 4
 while 1:
