@@ -87,8 +87,8 @@ def create_event(event_string, type):
             }
 
             print(event)
-            #event = service.events().insert(calendarId='primary', body=event).execute()
-            #print('Event created: {}'.format(event.get('htmlLink')))
+            event = service.events().insert(calendarId='primary', body=event).execute()
+            print('Event created: {}'.format(event.get('htmlLink')))
     else:
         event = {
           'summary': 'Google I/O 2015',
