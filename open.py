@@ -55,7 +55,7 @@ def create_event(event_string):
 
 
     event = service.events().insert(calendarId='primary', body=event).execute()
-    print('Event created: %s' % (event.get('htmlLink')))
+    print('Event created: {}'.format(event.get('htmlLink')))
 
 def send_message(target, string):
     x_arg = '//span[contains(@title,' + target + ')]'
