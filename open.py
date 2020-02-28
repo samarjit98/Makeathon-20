@@ -19,7 +19,7 @@ wait = WebDriverWait(driver, 600)
 def strip_tags(html):
     return re.sub('<[^<]+?>', '', html)
 
-def create_event(event_string):
+def create_event(event_string, type):
     creds = None
 
     if os.path.exists('token.pickle'):
@@ -39,8 +39,50 @@ def create_event(event_string):
 
     service = build('calendar', 'v3', credentials=creds)
 
-    # date yyyy-mm-dd, time 24 hrs format
-    event = {
+    if(type==0):
+        mesg = event_string.split("\n")
+        if "tomorrow" in mesg[0].lower():
+            start_date = str(datetime.date.today() + datetime.timedelta(days=1))
+            end_date = str(datetime.date.today() + datetime.timedelta(days=1))
+        else if "today" in mesg[0].lower():
+            start_date = str(datetime.date.today())
+            end_date = str(datetime.date.today())
+
+        classroom = mesg[1]
+        mesg = mesg[2:]
+
+        for line in mesg:
+            line = line.split(" ")
+            time = line[0]
+            course = line[2]
+
+            time = time.split("-")
+            if(len(time[0])==2):
+                start_time = '{}:00'.format(time[0])
+            else:
+                start_time = time[0]
+            if(len(time[1])==2):
+                end_time = '{}:00'.format(time[1])
+            else:
+                end_time = time[1]
+
+            event = {
+              'summary': course,
+              'location': classroom,
+              'description': course,
+              'start': {
+                'dateTime': '{}T{}:00+05:30'.format(start_date, start_time),
+              },
+              'end': {
+                'dateTime': '{}T{}:00+05:30'.format(end_date, end_time),
+              },
+            }
+
+            print(event)
+            #event = service.events().insert(calendarId='primary', body=event).execute()
+            #print('Event created: {}'.format(event.get('htmlLink')))
+    else:
+        event = {
           'summary': 'Google I/O 2015',
           'location': '800 Howard St., San Francisco, CA 94103',
           'description': 'A chance to hear more about Google\'s developer products.',
@@ -51,10 +93,7 @@ def create_event(event_string):
             'dateTime': '{}T{}:00+05:30'.format(end_date, end_time),
           },
         }
-
-
-    event = service.events().insert(calendarId='primary', body=event).execute()
-    print('Event created: {}'.format(event.get('htmlLink')))
+    # date yyyy-mm-dd, time 24 hrs format
 
 def send_message(target, string):
     x_arg = '//span[contains(@title,' + target + ')]'
@@ -104,6 +143,12 @@ def mainMessage(sleep=0):
                 is_offensive = predict(mlist)[0]
                 if is_offensive:
                     send_message("'Offensive'", "{} @ {} : {}".format(name, mesg_time, mesg))
+
+                if "timetable" in mesg.lower():
+                    create_event(mesg, 0)
+                if "event" in mesg.lower():
+                    create_event(mesg, 1)
+
         except :
             pass
 
