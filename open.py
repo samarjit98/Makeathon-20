@@ -9,6 +9,13 @@ import sys
 import re
 from profanity_check import predict, predict_prob
 from bs4 import BeautifulSoup
+from __future__ import print_function
+import datetime
+import pickle
+import os.path
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
 
 
 driver = webdriver.Firefox(executable_path=r'./Gecko/geckodriver')
@@ -44,7 +51,7 @@ def create_event(event_string, type):
         if "tomorrow" in mesg[0].lower():
             start_date = str(datetime.date.today() + datetime.timedelta(days=1))
             end_date = str(datetime.date.today() + datetime.timedelta(days=1))
-        else if "today" in mesg[0].lower():
+        elif "today" in mesg[0].lower():
             start_date = str(datetime.date.today())
             end_date = str(datetime.date.today())
 
