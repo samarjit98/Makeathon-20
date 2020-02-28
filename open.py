@@ -91,10 +91,22 @@ def create_event(event_string, type):
             event = service.events().insert(calendarId='primary', body=event).execute()
             print('Event created: {}'.format(event.get('htmlLink')))
     else:
+        mesg = event_string.split("\n")
+        print(mesg)
+        date_time = mesg[1].split(" ")
+        event_loc = mesg[2]
+        event_name = mesg[3]
+
+        start_date = date_time[0]
+        end_date = date_time[0]
+
+        start_time = date_time[1].split("-")[0]
+        end_time = date_time[1].split("-")[1]
+
         event = {
-          'summary': 'Google I/O 2015',
-          'location': '800 Howard St., San Francisco, CA 94103',
-          'description': 'A chance to hear more about Google\'s developer products.',
+          'summary': event_name,
+          'location': event_loc,
+          'description': event_name,
           'start': {
             'dateTime': '{}T{}:00+05:30'.format(start_date, start_time),
           },
@@ -102,6 +114,10 @@ def create_event(event_string, type):
             'dateTime': '{}T{}:00+05:30'.format(end_date, end_time),
           },
         }
+
+        print(event)
+        event = service.events().insert(calendarId='primary', body=event).execute()
+        print('Event created: {}'.format(event.get('htmlLink')))
     # date yyyy-mm-dd, time 24 hrs format
 
 def send_message(target, string):
