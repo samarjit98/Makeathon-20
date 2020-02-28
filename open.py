@@ -142,8 +142,8 @@ def mainMessage(sleep=0):
             print(messages)
 
             for message in messages:
-                #star_button = driver.find_elements_by_css_selector("._3zy-4 Sl-9e[value = 'Star message']").click()
-                #print(star_button)
+                star_button = driver.find_elements_by_css_selector("._3zy-4[value = 'Star message']")[0]
+                print("******** {}".format(star_button.get_attribute('innerHTML')))
                 mesg = strip_tags(message.get_attribute('innerHTML'))
                 print(mesg)
                 mlist = []
