@@ -19,14 +19,42 @@ wait = WebDriverWait(driver, 600)
 def strip_tags(html):
     return re.sub('<[^<]+?>', '', html)
 
-'''def send_message(target, string):
-    x_arg = '//span[contains(@title,' + target.lower() + ')]'
-    group_title = wait.until(EC.presence_of_element_located((By.XPATH, x_arg)))
-    group_title.click()
-    message = driver.find_elements_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[2]')[0]
-    message.send_keys(string)
-    sendbutton = driver.find_elements_by_xpath('//*[@id="main"]/footer/div[1]/button')[0]
-    sendbutton.click()'''
+def create_event(event_string):
+    creds = None
+
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
+    
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
+
+    service = build('calendar', 'v3', credentials=creds)
+
+    # date yyyy-mm-dd, time 24 hrs format
+    event = {
+          'summary': 'Google I/O 2015',
+          'location': '800 Howard St., San Francisco, CA 94103',
+          'description': 'A chance to hear more about Google\'s developer products.',
+          'start': {
+            'dateTime': '{}T{}:00+05:30'.format(start_date, start_time),
+          },
+          'end': {
+            'dateTime': '{}T{}:00+05:30'.format(end_date, end_time),
+          },
+        }
+
+
+    event = service.events().insert(calendarId='primary', body=event).execute()
+    print('Event created: %s' % (event.get('htmlLink')))
 
 def send_message(target, string):
     x_arg = '//span[contains(@title,' + target + ')]'
