@@ -174,6 +174,7 @@ def mainMessage(sleep=0):
 
                 if "timetable" in mesg.lower():
                     create_event(mesg, 0)
+                    send_message("'Timetable'", mesg)
                 if "event" in mesg.lower():
                     create_event(mesg, 1)
 
