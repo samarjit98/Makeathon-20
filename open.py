@@ -62,7 +62,6 @@ def send_message(target, string):
     group_title = wait.until(EC.presence_of_element_located((By.XPATH, x_arg)))
     print(group_title)
     group_title.click()
-    #message = driver.find_element(By.XPATH , '//*[@id="main"]/footer/div[1]/div[2]/div/div[2]') #find_elements_by_xpath('//*[@id="main"]/footer/div[0]/div[1]/div[0]/div[1]')[0]
     inp_xpath = '//*[@id="main"]/footer/div[1]/div[2]/div/div[2]'
     input_box = wait.until(EC.presence_of_element_located((By.XPATH, inp_xpath))) 
     print(input_box)
@@ -81,7 +80,6 @@ def mainMessage(sleep=0):
         name = soup.select("._19RFN")[0].get('title')
         mesg_time = soup.select("._0LqQ")[0].get_text()
         chatHead = driver.find_elements_by_css_selector(".P6z4j")[0]
-        #print(chatHead)
         no_messages = int(chatHead.get_attribute('innerHTML'))
         print(no_messages)
 
