@@ -46,11 +46,9 @@ def create_event(event_string):
           'description': 'A chance to hear more about Google\'s developer products.',
           'start': {
             'dateTime': '2015-05-28T09:00:00-07:00',
-            'timeZone': 'America/Los_Angeles',
           },
           'end': {
             'dateTime': '2015-05-28T17:00:00-07:00',
-            'timeZone': 'America/Los_Angeles',
           },
         }
 
