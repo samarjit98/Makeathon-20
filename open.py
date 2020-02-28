@@ -120,6 +120,7 @@ def create_event(event_string, type):
         print('Event created: {}'.format(event.get('htmlLink')))
     # date yyyy-mm-dd, time 24 hrs format
 
+
 def send_message(target, string):
     x_arg = '//span[contains(@title,' + target + ')]'
     print(x_arg)
@@ -176,7 +177,7 @@ def mainMessage(sleep=0):
                     create_event(mesg, 0)
                 if "event" in mesg.lower():
                     create_event(mesg, 1)
-
+                
         except Exception as e:
             print(e)
             pass
