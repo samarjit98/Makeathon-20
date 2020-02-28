@@ -95,6 +95,7 @@ def mainMessage(sleep=0):
 
             for message in messages:
                 mesg = strip_tags(message.get_attribute('innerHTML'))
+                print(mesg)
                 mlist = []
                 mlist.append(mesg)
                 is_offensive = predict(mlist)[0]
