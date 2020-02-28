@@ -1,3 +1,3 @@
-#WhatsApp Multiplexer
+# WhatsApp Multiplexer
 
-##An automation tool for WhatsApp web.
+## An automation tool for WhatsApp web.
