@@ -22,6 +22,7 @@ driver = webdriver.Firefox(executable_path=r'./Gecko/geckodriver')
 driver.get("https://web.whatsapp.com/")
 time.sleep(2)
 wait = WebDriverWait(driver, 600)
+SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 def strip_tags(html):
     return re.sub('<[^<]+?>', '', html)
@@ -87,8 +88,8 @@ def create_event(event_string, type):
             }
 
             print(event)
-            #event = service.events().insert(calendarId='primary', body=event).execute()
-            #print('Event created: {}'.format(event.get('htmlLink')))
+            event = service.events().insert(calendarId='primary', body=event).execute()
+            print('Event created: {}'.format(event.get('htmlLink')))
     else:
         event = {
           'summary': 'Google I/O 2015',
