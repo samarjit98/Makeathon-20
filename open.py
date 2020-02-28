@@ -16,6 +16,7 @@ import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+import threading 
 
 
 driver = webdriver.Firefox(executable_path=r'./Gecko/geckodriver')
@@ -26,6 +27,14 @@ SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 def strip_tags(html):
     return re.sub('<[^<]+?>', '', html)
+
+def search_downloads(file_name):
+    while(1):
+        if file_name in os.listdir(os.path.join(os.path.expanduser("~"), "Downloads")):
+            subject = file_name.split('_')[0]
+            if not os.path.exists('{}/Notes/{}'.format(os.path.expanduser('~'), subject)):
+                os.mkdir('{}/Notes/{}'.format(os.path.expanduser('~'), subject))
+            os.system('mv {}/Downloads/{} {}/Notes/{}/{}'.format(os.path.expanduser('~'), file_name, os.path.expanduser('~'), subject, file_name))
 
 def create_event(event_string, type):
     creds = None
@@ -140,11 +149,12 @@ def mainMessage(sleep=0):
     i = 1
     for rightChatBox in rightChatBoxes:
         soup = BeautifulSoup(rightChatBox.get_attribute('innerHTML'), 'html.parser')
-        #print(soup.prettify())
+        print(soup.prettify())
         name = soup.select("._19RFN")[0].get('title')
         mesg_time = soup.select("._0LqQ")[0].get_text()
         chatHead = driver.find_elements_by_css_selector(".P6z4j")[0]
         no_messages = int(chatHead.get_attribute('innerHTML'))
+        print(no_messages)
         
         rightChatBox.click()
 
@@ -154,23 +164,34 @@ def mainMessage(sleep=0):
 
         try :
 
-            messages = driver.find_elements_by_css_selector("._12pGw")[-no_messages:]
+            messages = driver.find_elements_by_css_selector("._F7Vk")[-no_messages:]   #_2Wx_5 _3LG3B #_12pGw
             print(messages)
 
             for message in messages:
                 mesg = strip_tags(message.get_attribute('innerHTML'))
                 print(mesg)
-                mlist = []
-                mlist.append(mesg)
-                is_offensive = predict(mlist)[0]
-                if is_offensive:
-                    send_message("'Offensive'", "{} @ {} : {}".format(name, mesg_time, mesg))
+                if ".pdf" in mesg:
+                    download_buttons = driver.find_elements_by_css_selector("._1mrMQ")   #[0].click()    #_1zGQT oty3x  #_1mrMQ
+                    for download_button in download_buttons:
+                        if mesg in download_button.get_attribute('innerHTML'):
+                            download_button.click()
+                            t1 = threading.Thread(target=search_downloads, args=(mesg,)) 
+                            t1.start()
+                            break
 
-                if "timetable" in mesg.lower():
-                    create_event(mesg, 0)
-                    send_message("'Timetable'", mesg)
-                if "event" in mesg.lower():
-                    create_event(mesg, 1)
+                    #print(download_button)
+                else:
+                    mlist = []
+                    mlist.append(mesg)
+                    is_offensive = predict(mlist)[0]
+                    if is_offensive:
+                        send_message("'Offensive'", "{} @ {} : {}".format(name, mesg_time, mesg))
+
+                    if "timetable" in mesg.lower():
+                        create_event(mesg, 0)
+                        send_message("'Timetable'", mesg)
+                    if "event" in mesg.lower():
+                        create_event(mesg, 1)
                 
         except Exception as e:
             print(e)
