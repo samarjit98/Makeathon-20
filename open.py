@@ -143,8 +143,11 @@ def mainMessage(sleep=0):
             print(messages)
 
             for message in messages:
-                star_button = driver.find_elements_by_css_selector("._3zy-4[value = 'Star message']")[0]
-                print("******** {}".format(star_button.get_attribute('innerHTML')))
+                #star_button = driver.find_elements_by_css_selector(".Sl-9e[value = 'Star message']")  #_3zy-4 Sl-9e _3_4Kp
+                #star_xpath = '//*[@id="main"]/div[1]/div[2]/div/div[2]'
+                #print("******** {}".format(star_button))
+                #print("******** {}".format(star_button.get_attribute('innerHTML')))
+                driver.find_element(By.XPATH, '//button[text()="Star message"]').click()
                 mesg = strip_tags(message.get_attribute('innerHTML'))
                 print(mesg)
                 mlist = []
