@@ -40,15 +40,16 @@ def create_event(event_string):
 
     service = build('calendar', 'v3', credentials=creds)
 
+    # date yyyy-mm-dd, time 24 hrs format
     event = {
           'summary': 'Google I/O 2015',
           'location': '800 Howard St., San Francisco, CA 94103',
           'description': 'A chance to hear more about Google\'s developer products.',
           'start': {
-            'dateTime': '2015-05-28T09:00:00-07:00',
+            'dateTime': '{}T{}:00+05:30'.format(start_date, start_time),
           },
           'end': {
-            'dateTime': '2015-05-28T17:00:00-07:00',
+            'dateTime': '{}T{}:00+05:30'.format(end_date, end_time),
           },
         }
 
