@@ -1,3 +1,4 @@
+from __future__ import print_function
 import time
 from html.parser import HTMLParser
 from selenium import webdriver
@@ -9,7 +10,6 @@ import sys
 import re
 from profanity_check import predict, predict_prob
 from bs4 import BeautifulSoup
-from __future__ import print_function
 import datetime
 import pickle
 import os.path
