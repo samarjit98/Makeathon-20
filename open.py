@@ -22,6 +22,7 @@ driver = webdriver.Firefox(executable_path=r'./Gecko/geckodriver')
 driver.get("https://web.whatsapp.com/")
 time.sleep(2)
 wait = WebDriverWait(driver, 600)
+SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 def strip_tags(html):
     return re.sub('<[^<]+?>', '', html)
