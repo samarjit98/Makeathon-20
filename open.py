@@ -1,5 +1,4 @@
 import time
-from nltkrun import classify
 from html.parser import HTMLParser
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -9,7 +8,7 @@ from selenium.webdriver.common.by import By
 import sys
 import re
 from profanity_check import predict, predict_prob
-
+from bs4 import BeautifulSoup
 
 
 driver = webdriver.Firefox(executable_path=r'./Gecko/geckodriver')
@@ -49,6 +48,10 @@ def mainMessage(sleep=0):
     i = 1
     for rightChatBox in rightChatBoxes:
         print(rightChatBox.get_attribute('innerHTML'))
+        soup = BeautifulSoup(rightChatBox.get_attribute('innerHTML'), 'html.parser')
+        print(soup.prettify())
+        name = soup.select("._19RFN")[0].get('title')
+        mesg_time = soup.select("._0LqQ")[0].get_text()
         chatHead = driver.find_elements_by_css_selector(".P6z4j")[0]
         #print(chatHead)
         no_messages = int(chatHead.get_attribute('innerHTML'))
@@ -65,12 +68,12 @@ def mainMessage(sleep=0):
             messages = driver.find_elements_by_css_selector("._12pGw")[-no_messages:]
 
             for message in messages:
-                mess = strip_tags(message.get_attribute('innerHTML'))
+                mesg = strip_tags(message.get_attribute('innerHTML'))
                 mlist = []
-                mlist.append(mess)
+                mlist.append(mesg)
                 is_offensive = predict(mlist)[0]
                 if is_offensive:
-                    send_message("'Offensive'", mess)
+                    send_message("'Offensive'", "{} @ {} : {}".format(name, mesg_time, mesg))
                 '''group_name = "'" + classify(mess)[0] + "'"
                 print(mess)
                 print(group_name)
