@@ -41,10 +41,11 @@ def create_event(event_string, type):
 
     if(type==0):
         mesg = event_string.split("\n")
+        print(mesg)
         if "tomorrow" in mesg[0].lower():
             start_date = str(datetime.date.today() + datetime.timedelta(days=1))
             end_date = str(datetime.date.today() + datetime.timedelta(days=1))
-        else if "today" in mesg[0].lower():
+        elif "today" in mesg[0].lower():
             start_date = str(datetime.date.today())
             end_date = str(datetime.date.today())
 
@@ -113,9 +114,9 @@ def mainMessage(sleep=0):
 
     i = 1
     for rightChatBox in rightChatBoxes:
-        print(rightChatBox.get_attribute('innerHTML'))
+        #print(rightChatBox.get_attribute('innerHTML'))
         soup = BeautifulSoup(rightChatBox.get_attribute('innerHTML'), 'html.parser')
-        print(soup.prettify())
+        #print(soup.prettify())
         name = soup.select("._19RFN")[0].get('title')
         mesg_time = soup.select("._0LqQ")[0].get_text()
         chatHead = driver.find_elements_by_css_selector(".P6z4j")[0]
@@ -135,7 +136,7 @@ def mainMessage(sleep=0):
 
             for message in messages:
                 #star_button = driver.find_elements_by_css_selector("._3zy-4 Sl-9e[value = 'Star message']").click()
-                print(star_button)
+                #print(star_button)
                 mesg = strip_tags(message.get_attribute('innerHTML'))
                 print(mesg)
                 mlist = []
@@ -149,7 +150,8 @@ def mainMessage(sleep=0):
                 if "event" in mesg.lower():
                     create_event(mesg, 1)
 
-        except :
+        except Exception as e:
+            print(e)
             pass
 
 count = 4
