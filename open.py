@@ -18,6 +18,9 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import threading 
 
+'''
+Awesomeness lent from: https://github.com/dhruvramani/Makeathon-18
+'''
 
 driver = webdriver.Firefox(executable_path=r'./Gecko/geckodriver')
 driver.get("https://web.whatsapp.com/")
