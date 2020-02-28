@@ -10,7 +10,7 @@ import sys
 import re
 
 
-driver = webdriver.Firefox(executable_path=r'/home/samarjit98/Selenium/geckodriver')
+driver = webdriver.Firefox(executable_path=r'./Gecko/geckodriver')
 driver.get("https://web.whatsapp.com/")
 time.sleep(2)
 wait = WebDriverWait(driver, 600)
@@ -34,9 +34,11 @@ def mainMessage(sleep=0):
 
     i = 1
     for rightChatBox in rightChatBoxes:
+        print(rightChatBox.get_attribute('innerHTML'))
         chatHead = driver.find_elements_by_css_selector(".P6z4j")[0]
-        print(chatHead)
+        #print(chatHead)
         no_messages = int(chatHead.get_attribute('innerHTML'))
+        print(no_messages)
 
         rightChatBox.click()
 
@@ -46,12 +48,13 @@ def mainMessage(sleep=0):
 
         try :
 
-            messages = driver.find_elements_by_css_selector(".ZhF0n")[-no_messages:]
+            messages = driver.find_elements_by_css_selector("._12pGw")[-no_messages:]
 
             for message in messages:
-                mess = strip_tags(message.text)
+                mess = strip_tags(message.get_attribute('innerHTML'))
                 group_name = "'" + classify(mess)[0] + "'"
                 print(mess)
+                print(group_name)
 
                 send_message(group_name, mess)
         except :
