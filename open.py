@@ -131,14 +131,16 @@ def create_event(event_string, type):
 
 
 def send_message(target, string):
-    x_arg = '//span[contains(@title,' + target + ')]'
+    #x_arg = '//span[contains(@title,' + target + ')]'
+    x_arg = '//span[@title=' + target + ']'
     print(x_arg)
     group_title = wait.until(EC.presence_of_element_located((By.XPATH, x_arg)))
-    print(group_title)
+    print(group_title.get_attribute('innerHTML'))
     group_title.click()
     inp_xpath = '//*[@id="main"]/footer/div[1]/div[2]/div/div[2]'
     input_box = wait.until(EC.presence_of_element_located((By.XPATH, inp_xpath))) 
     print(input_box)
+    string = string.replace('\n', Keys.SHIFT + Keys.ENTER + Keys.SHIFT) 
     input_box.send_keys(string + Keys.ENTER)
 
 def mainMessage(sleep=0):
