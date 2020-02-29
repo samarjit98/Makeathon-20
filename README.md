@@ -19,5 +19,5 @@ python3 open.py
 <br>
 
 <sup>
-Made with :heart:, :coffee: and '''</>''' by Samarjit Karmakar (samarjit98) and Himadyuti Bhanja (himadyuti98)
+Made with :heart:, :coffee: and &lt/&gt by Samarjit Karmakar (samarjit98) and Himadyuti Bhanja (himadyuti98)
 </sup>
