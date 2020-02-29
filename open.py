@@ -38,6 +38,7 @@ def search_downloads(file_name):
             if not os.path.exists('{}/Notes/{}'.format(os.path.expanduser('~'), subject)):
                 os.mkdir('{}/Notes/{}'.format(os.path.expanduser('~'), subject))
             os.system('mv {}/Downloads/{} {}/Notes/{}/{}'.format(os.path.expanduser('~'), file_name, os.path.expanduser('~'), subject, file_name))
+            break
 
 def create_event(event_string, type):
     creds = None
