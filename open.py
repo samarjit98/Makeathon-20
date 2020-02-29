@@ -216,32 +216,3 @@ while 1:
 
 time.sleep(10)
 driver.quit()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''
-
-Star feature:
-                star_button = driver.find_elements_by_css_selector(".Sl-9e[value = 'Star message']")  #_3zy-4 Sl-9e _3_4Kp
-                star_xpath = '//*[@id="main"]/div[1]/div[2]/div/div[2]'
-                print("******** {}".format(star_button))
-                print("******** {}".format(star_button.get_attribute('innerHTML')))
-                driver.find_elements_by_css_selector("._15CAo")[0].click() # 
-                print("click1")
-                driver.find_element(By.XPATH, '//*[@title="Star message"]').click()
-                print("click2")
-
-'''

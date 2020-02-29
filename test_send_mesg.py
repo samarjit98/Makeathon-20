@@ -6,6 +6,10 @@ from selenium.webdriver.common.by import By
 import time
 import sys
 
+'''
+Awesomeness lent from: https://github.com/dhruvramani/Makeathon-18
+'''
+
 driver = webdriver.Firefox(executable_path=r'./Gecko/geckodriver')
 driver.get("https://web.whatsapp.com/")
 wait = WebDriverWait(driver, 600)
