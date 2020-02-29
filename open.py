@@ -173,6 +173,7 @@ def mainMessage(sleep=0):
             print(messages)
 
             for message in messages:
+                message.click()
                 mesg = strip_tags(message.get_attribute('innerHTML'))
                 print(mesg)
                 if ".pdf" in mesg:
@@ -190,6 +191,10 @@ def mainMessage(sleep=0):
                     mlist.append(mesg)
                     is_offensive = predict(mlist)[0]
                     if is_offensive:
+                        driver.find_elements_by_css_selector("._2-qoA")[0].click() # 
+                        print("click1")
+                        driver.find_element(By.XPATH, '//*[@title="Star message"]').click()
+                        print("click2")
                         send_message("'Offensive'", "{} @ {} : {}".format(name, mesg_time, mesg))
 
                     if "timetable" in mesg.lower():
