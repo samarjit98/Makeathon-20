@@ -173,11 +173,10 @@ def mainMessage(sleep=0):
             print(messages)
 
             for message in messages:
-                message.click()
                 mesg = strip_tags(message.get_attribute('innerHTML'))
                 print(mesg)
                 if ".pdf" in mesg:
-                    download_buttons = driver.find_elements_by_css_selector("._1mrMQ")   #[0].click()    #_1zGQT oty3x  #_1mrMQ
+                    download_buttons = driver.find_elements_by_css_selector("._1mrMQ")[-no_messages:]   #[0].click()    #_1zGQT oty3x  #_1mrMQ
                     for download_button in download_buttons:
                         if mesg in download_button.get_attribute('innerHTML'):
                             download_button.click()
@@ -187,6 +186,7 @@ def mainMessage(sleep=0):
 
                     #print(download_button)
                 else:
+                    message.click()
                     mlist = []
                     mlist.append(mesg)
                     is_offensive = predict(mlist)[0]
