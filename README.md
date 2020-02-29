@@ -18,6 +18,6 @@ python3 open.py
 <br>
 <br>
 
-<center><sup>
+<sup align="center">
 Made with :heart:, :coffee: and &lt/&gt by Samarjit Karmakar (samarjit98) and Himadyuti Bhanja (himadyuti98)
-</sup></center>
+</sup>
