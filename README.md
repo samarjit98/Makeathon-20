@@ -14,8 +14,9 @@ pip3 install -r requirements.txt
 python3 open.py
 ```
 
-
-
+<br>
+<br>
+<br>
 
 <sup>
 Made with :heart:, :coffee: and </> by Samarjit Karmakar (samarjit98) and Himadyuti Bhanja (himadyuti98)
